@@ -3,9 +3,22 @@ use std::fs;
 fn main() {
     let program = load_program("input.txt");
 
-    let result = execute(program).expect("unsuccessful execution");
-
-    println!("{:?}", result);
+    for noun in 0..99 {
+        for verb in 0..99 {
+            let mut test_case = program.clone();
+            test_case.remove(1);
+            test_case.insert(1, noun);
+            test_case.remove(2);
+            test_case.insert(2, verb);
+            let result = execute(test_case).expect("valid execution");
+            let result = result[0];
+            if result == 19690720 {
+                println!("{} and {} = {}", noun, verb, result);
+                println!("Answer = {}", 100 * noun + verb);
+                return;
+            }
+        }
+    }
 }
 
 fn execute(input: Vec<usize>) -> Result<Vec<usize>, usize> {
@@ -35,13 +48,11 @@ fn execute(input: Vec<usize>) -> Result<Vec<usize>, usize> {
                 instruction_pointer + 4
             },
             99 => {
-                println!("exiting");
                 running = false;
                 exit_code = 0;
                 0
             },
             _ => {
-                println!("invalid instruction");
                 running = false;
                 exit_code = 1;
                 0
