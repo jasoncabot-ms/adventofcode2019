@@ -1,3 +1,5 @@
+#[macro_use] extern crate text_io;
+
 pub fn execute(input: Vec<usize>) -> Result<Vec<usize>, usize> {
 
     let mut input = input.clone();
@@ -24,6 +26,17 @@ pub fn execute(input: Vec<usize>) -> Result<Vec<usize>, usize> {
                 input.splice(result_pointer..result_pointer + 1, vec![a * b]);
                 instruction_pointer + 4
             },
+            3 => {
+                let a: usize = read!(); // read stdin
+                let result_pointer = input[instruction_pointer + 1];
+                input.splice(result_pointer..result_pointer + 1, vec![a]);
+                instruction_pointer + 2
+            },
+            4 => {
+                let value = input[input[instruction_pointer + 1]];
+                println!("{}", value);
+                instruction_pointer + 2
+            }
             99 => {
                 running = false;
                 exit_code = 0;
@@ -78,4 +91,11 @@ mod tests {
         assert_eq!(result.is_ok(), true);
         assert_eq!(result.ok().unwrap()[0], 30);
     }
+
+    // #[test]
+    // fn input_prompt() {
+    //     let result = execute(vec![3, 0, 99]);
+    //     assert_eq!(result.is_ok(), true);
+    //     assert_eq!(result.ok().unwrap()[0], 1);
+    // }
 }
