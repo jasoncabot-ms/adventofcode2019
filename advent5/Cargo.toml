@@ -1,8 +1,8 @@
 [package]
-name = "advent2"
+name = "advent5"
 version = "0.1.0"
 authors = ["Jason Cabot <Jason.Cabot@microsoft.com>"]
 edition = "2018"
 
 [dependencies]
-advent_computer = { path = "../advent_computer" }
+advent_computer = { path = "../advent_computer/" }
