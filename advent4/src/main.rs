@@ -23,7 +23,7 @@ fn main() {
 
 fn to_int(digits: Vec<usize>) -> usize {
     let count = digits.len() - 1;
-    return digits.iter().enumerate().fold(0, |total, (index, digit)| total + 10_usize.pow((count - index) as u32) * digit );
+    return digits.iter().rev().enumerate().fold(0, |total, (index, digit)| total + 10_usize.pow((count - index) as u32) * digit );
 }
 
 fn digits(number: usize) -> Vec<usize> {
@@ -35,6 +35,5 @@ fn digits(number: usize) -> Vec<usize> {
         number = number / 10;
     }
     digits.push(number);
-    digits.reverse();
     return digits;
 }

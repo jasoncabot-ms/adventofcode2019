@@ -23,7 +23,7 @@ fn main() {
     }
 }
 
-fn load_program(filename: &str) -> Vec<usize> {
+fn load_program(filename: &str) -> Vec<isize> {
     let contents = fs::read_to_string(filename).expect("unable to read file");
     return contents.split(",").map(|i| i.parse().expect("parse error")).collect();
 }
