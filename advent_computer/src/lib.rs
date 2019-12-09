@@ -65,7 +65,51 @@ fn execute_from(input: Vec<isize>, start_of_program: usize) -> Result<Vec<isize>
                 let value = read(1);
                 println!("{}", value);
                 (instruction_pointer + 2, 0)
-            }
+            },
+            5 => {
+                // jump-if-true
+                let condition = read(1);
+                if condition != 0 {
+                    let jump_to = read(2) as usize;
+                    (jump_to, 0)
+                } else {
+                    (instruction_pointer + 3, 0)
+                }
+            },
+            6 => {
+                // jump-if-false
+                let condition = read(1);
+                if condition == 0 {
+                    let jump_to = read(2) as usize;
+                    (jump_to, 0)
+                } else {
+                    (instruction_pointer + 3, 0)
+                }
+            },
+            7 => {
+                // less-than
+                let left = read(1);
+                let right = read(2);
+                let result_pointer = read_mode(3, MODE_IMMEDIATE) as usize;
+                if left < right {
+                    input[result_pointer] = 1
+                } else {
+                    input[result_pointer] = 0
+                }
+                (instruction_pointer + 4, 0)
+            },
+            8 => {
+                // equal
+                let left = read(1);
+                let right = read(2);
+                let result_pointer = read_mode(3, MODE_IMMEDIATE) as usize;
+                if left == right {
+                    input[result_pointer] = 1
+                } else {
+                    input[result_pointer] = 0
+                }
+                (instruction_pointer + 4, 0)
+            },
             99 => {
                 running = false;
                 (0, 0)
