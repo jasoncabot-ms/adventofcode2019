@@ -1,0 +1,17 @@
+name: Cargo Test All Packages
+
+on: [push]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        package: [advent1, advent2, advent3, advent4, advent5, advent_computer]
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run tests
+      run: cargo test --verbose
+      working-directory: ${{ matrix.package }}
